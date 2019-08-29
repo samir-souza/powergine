@@ -94,3 +94,6 @@ find_package(SDL_image REQUIRED SDL_image>=1.2.0)
 find_package(SDL_net REQUIRED SDL_net>=1.2.0)
 
 target_include_directories(powergine PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+install(TARGETS powergine DESTINATION /usr/local/lib)
+install(DIRECTORY include/ DESTINATION include)
