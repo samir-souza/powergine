@@ -25,7 +25,7 @@ template<class ClassType> inline Buffer<ClassType>::Buffer( int iNumElements ) :
 {
 } // Buffer
 
-template<class ClassType> ClassType inline &Buffer<ClassType>::getElementAt( int iIndex ) const throw( std::out_of_range ) {
+template<class ClassType> ClassType inline &Buffer<ClassType>::getElementAt( int iIndex ) const {
    if ( iIndex < 0 || iIndex >= m_iNumElements ) {
       std::ostringstream sstrErrorMsg;
       sstrErrorMsg << iIndex;

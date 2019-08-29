@@ -55,7 +55,7 @@ namespace powergine {
 	   void addTexture( Texture *pTexture );
 
 	   // Retrieves a texture pointer given its index (multitexture)
-	   Texture* const getTexture( unsigned int uiTextureIndex ) const throw( std::string );
+	   Texture* const getTexture( unsigned int uiTextureIndex ) const;
 
 	   // Getters of the lighting colors
 	   const Color& getAmbient( ) const;

@@ -36,7 +36,7 @@ NetKeyboardServer::NetKeyboardServer( Socket *pSocket, NetKeyboardEventAdapter *
    m_pServerSocket->addListener( this );
 }
 
-void NetKeyboardServer::startup( ) throw( IOException ) {
+void NetKeyboardServer::startup( ) {
    try {
       m_bRunning = true;
       m_pServerSocket->open( );

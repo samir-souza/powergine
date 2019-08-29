@@ -43,7 +43,7 @@ void SDLTCPSocket::close( ) {
    m_bConnected = false;
 }
 
-void SDLTCPSocket::open( ) throw( IOException ) {
+void SDLTCPSocket::open( ) {
    m_pSocket = SDLNet_TCP_Open( (IPaddress*)m_pIPAddress );   
    if( !m_pSocket ) {
       std::stringstream sstrMessage;
@@ -54,7 +54,7 @@ void SDLTCPSocket::open( ) throw( IOException ) {
    m_bConnected = ( SDLNet_TCP_GetPeerAddress( (TCPsocket)m_pSocket ) );
 }
 
-void SDLTCPSocket::accept( ) throw( IOException ) {
+void SDLTCPSocket::accept( ) {
    // accept a connection coming in on server_tcpsock      
    m_pClientSocket = SDLNet_TCP_Accept( (TCPsocket)m_pSocket );
    if( !m_pClientSocket ) {      
@@ -68,7 +68,7 @@ void SDLTCPSocket::accept( ) throw( IOException ) {
    // listeners will be alert   
 }
 
-int SDLTCPSocket::receive( void *pData, int iMaxDataSize ) throw( IOException ) {
+int SDLTCPSocket::receive( void *pData, int iMaxDataSize ) {
    
    //TCPsocket sock;      
    int iResult = SDLNet_TCP_Recv( (TCPsocket)m_pClientSocket, pData, iMaxDataSize );   
@@ -83,7 +83,7 @@ int SDLTCPSocket::receive( void *pData, int iMaxDataSize ) throw( IOException ) 
    
 }
 
-void SDLTCPSocket::send( void *pData, int iDataSize ) throw( IOException ) {     
+void SDLTCPSocket::send( void *pData, int iDataSize ) {     
    // add one for the terminating NULL   
    int iResult = SDLNet_TCP_Send( (TCPsocket)m_pSocket, pData, iDataSize );
    
@@ -100,7 +100,7 @@ SDLTCPSocket::~SDLTCPSocket( ) {
    close( );
 }
               
-SDLTCPSocket::SDLTCPSocket( int iPort, const std::string &rstrIPAddress ) throw( InvalidParameterException )  :
+SDLTCPSocket::SDLTCPSocket( int iPort, const std::string &rstrIPAddress )  :
    Socket( rstrIPAddress, iPort ),
    m_pIPAddress( new IPaddress( ) ), 
    m_bConnected( false )

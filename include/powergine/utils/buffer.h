@@ -39,7 +39,7 @@ namespace powergine {
 	template<class ClassType> class Buffer : public Collection<ClassType> {
 
 	private:
-	   std::auto_ptr<ClassType> m_pucBuffer;
+	   std::unique_ptr<ClassType> m_pucBuffer;
 	   int m_iNumElements;
 	   int m_iTypeSize;
 
@@ -83,7 +83,7 @@ namespace powergine {
 	   inline int getNumElements( ) const { return m_iNumElements; }
 
 	   // Returns a element positioned at a given index
-	   inline ClassType& getElementAt( int iIndex ) const throw( std::out_of_range );
+	   inline ClassType& getElementAt( int iIndex ) const;
 
 	   // Returns a pointer to the contiguous data of the elements stored in
 	   // this buffer

@@ -41,7 +41,7 @@ void NetKeyboardClient::pressed ( input::events::KeyEvent *pEvent) {
    } // if
 }
 
-NetKeyboardClient::NetKeyboardClient ( Socket *pSocket ) throw( IOException ) :
+NetKeyboardClient::NetKeyboardClient ( Socket *pSocket ) :
    m_pClientSocket( pSocket )
 {   
    startup( );
@@ -51,7 +51,7 @@ NetKeyboardClient::~NetKeyboardClient( ) {
    shutdown( );
 }
 
-void NetKeyboardClient::startup( ) throw( IOException ) {
+void NetKeyboardClient::startup( ) {
    m_pClientSocket->open( );
 }
 

@@ -62,7 +62,7 @@ namespace powergine {
 		   int getNumPlanes( ) const;
 
 		   // Returns a plane given its index
-		   primitives::Plane& operator[]( int iIndex ) throw( std::string );
+		   primitives::Plane& operator[]( int iIndex );
 
 		   // Checks if it collides with a AABB
 		   virtual bool collide( const AABB &rkBoundingVolume, utils::ContactSet *pContactSet );

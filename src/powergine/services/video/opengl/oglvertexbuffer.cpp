@@ -46,7 +46,7 @@ OGLVertexBuffer::~OGLVertexBuffer( ) {
    delete m_pPositionElement;
    delete m_pDiffuseElement;
    delete m_pNormalElement;
-   delete [] m_pTexCoordElement;
+   //delete [] m_pTexCoordElement;
 } // ~OGLVertexBuffer
 
 void OGLVertexBuffer::parseElements( ) {

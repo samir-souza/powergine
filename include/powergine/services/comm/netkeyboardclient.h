@@ -42,7 +42,7 @@ namespace powergine {
 		public:
 
 			// Receives the client socket used to connect to the server
-		   NetKeyboardClient ( Socket *pSocket ) throw( IOException );
+		   NetKeyboardClient ( Socket *pSocket );
 
 		   virtual ~NetKeyboardClient ( );
 
@@ -51,7 +51,7 @@ namespace powergine {
 		   void  pressed ( input::events::KeyEvent *pEvent);
 
 		   // Initialize the keyboard client client
-		   void startup( ) throw( IOException );
+		   void startup( );
 
 		   // Shutdowns the service
 		   void shutdown( );

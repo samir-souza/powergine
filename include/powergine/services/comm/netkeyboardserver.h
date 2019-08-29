@@ -48,7 +48,7 @@ namespace powergine {
 		   inline virtual ~NetKeyboardServer( ) { }
 
 		   // Starts the server
-		   void startup( ) throw( IOException );
+		   void startup( );
 
 		   // Shutdowns the server
 		   void shutdown( );

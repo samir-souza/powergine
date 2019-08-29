@@ -37,21 +37,21 @@ namespace powergine {
 
 		public:
 			// default constructor
-			SDLTCPSocket ( int iPort, const std::string &rstrIPAddress = "" ) throw( InvalidParameterException );
+			SDLTCPSocket ( int iPort, const std::string &rstrIPAddress = "" );
 
 			virtual ~SDLTCPSocket( );
 
 		   // Sends data via Socket
-		   void send ( void *pData, int iDataSize ) throw( IOException );
+		   void send ( void *pData, int iDataSize );
 
 		   // Receives data via Socket
-		   int receive ( void *pData, int iMaxDataSize ) throw( IOException );
+		   int receive ( void *pData, int iMaxDataSize );
 
 		   // Bind an ip address and a port from a server socket
-		   void accept () throw( IOException );
+		   void accept ();
 
 		   // Open connection to a client or server socket
-		   void open () throw( IOException );
+		   void open ();
 
 		   // Closes an opened connection socket
 		   void close ();

@@ -67,7 +67,7 @@ void Material::addTexture( Texture *pTexture ) {
    } // if
 } // addTexture
 
-Texture* const Material::getTexture( unsigned int uiTextureIndex ) const throw( std::string ) {
+Texture* const Material::getTexture( unsigned int uiTextureIndex ) const {
    int iRealIndex = m_vecTextures.size( ) - 1;
    int iIndex = uiTextureIndex;
    if ( uiTextureIndex < 0 || iIndex > iRealIndex ) {

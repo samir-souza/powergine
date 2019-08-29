@@ -45,7 +45,7 @@ void SDLUDPSocket::close( ) {
 	SDLNet_UDP_Close((UDPsocket)m_pSocket);
 }
 
-void SDLUDPSocket::open( ) throw( IOException ) {
+void SDLUDPSocket::open( ) {
    m_pSocket = SDLNet_UDP_Open( ( !m_bConfiguredAsServer ) ? 0 : ((IPaddress*)m_pIPAddress)->port );
    if( !m_pSocket ) {
       std::stringstream sstrMessage;
@@ -55,7 +55,7 @@ void SDLUDPSocket::open( ) throw( IOException ) {
    } // if
 }
 
-void SDLUDPSocket::accept( ) throw( IOException ) {
+void SDLUDPSocket::accept( ) {
    // accept a connection coming in on server_UDPsock
    m_iChannel = SDLNet_UDP_Bind( (UDPsocket)m_pSocket, -1, ((IPaddress*)m_pIPAddress) );
    if( m_iChannel == -1 ) {
@@ -69,7 +69,7 @@ void SDLUDPSocket::accept( ) throw( IOException ) {
    // listeners will be alert
 }
 
-int SDLUDPSocket::receive( void *pData, int iMaxDataSize ) throw( IOException ) {
+int SDLUDPSocket::receive( void *pData, int iMaxDataSize ) {
    if ( iMaxDataSize > 65535 ) {
       m_bConnected = false;
       std::stringstream sstrMessage;
@@ -114,7 +114,7 @@ int SDLUDPSocket::receive( void *pData, int iMaxDataSize ) throw( IOException ) 
    return iSize;
 }
 
-void SDLUDPSocket::send( void *pData, int iDataSize ) throw( IOException ) {
+void SDLUDPSocket::send( void *pData, int iDataSize ) {
    // add one for the terminating NULL
    // TODO: check max size with iDataSize
    ((UDPpacket*)m_pPacket)->len = iDataSize;
@@ -139,7 +139,7 @@ SDLUDPSocket::~SDLUDPSocket( ) {
    SDLNet_UDP_Close( (UDPsocket)m_pSocket );
 }
 
-SDLUDPSocket::SDLUDPSocket( int iPort, const std::string &rstrIPAddress ) throw( InvalidParameterException, IOException )  :
+SDLUDPSocket::SDLUDPSocket( int iPort, const std::string &rstrIPAddress )  :
    Socket( rstrIPAddress, iPort ),
    m_pPacket( SDLNet_AllocPacket( 65535 ) ),
    m_pIPAddress( new IPaddress( ) ),

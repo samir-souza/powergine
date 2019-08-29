@@ -40,21 +40,21 @@ namespace powergine {
 
 		public:
 		   // Default constructor
-		   inline Socket ( const std::string &rstrIPAddress, unsigned int uiPort ) throw( InvalidParameterException ) { }
+		   inline Socket ( const std::string &rstrIPAddress, unsigned int uiPort ) { }
 
 		   inline virtual ~Socket( ) { }
 
 		   // Sends data via Socket
-		   virtual void send ( void *pData, int iDataSize ) throw( IOException ) = 0;
+		   virtual void send ( void *pData, int iDataSize ) = 0;
 
 		   // Receives data via Socket
-		   virtual int receive ( void *pData, int iMaxDataSize ) throw( IOException ) = 0;
+		   virtual int receive ( void *pData, int iMaxDataSize ) = 0;
 
 		   // Bind an ip address and a port from a server socket
-		   virtual void accept () throw( IOException ) = 0;
+		   virtual void accept () = 0;
 
 		   // Open connection to a client or server socket
-		   virtual void open () throw( IOException ) = 0;
+		   virtual void open () = 0;
 
 		   // Closes an opened connection socket
 		   virtual void close () = 0;
