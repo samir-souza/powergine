@@ -42,6 +42,8 @@ This project has dependencies with other libraries:
 SDL/SDL_image/SDL_net - www.libsdl.org
 
 ```console
+sudo apt-get install -y libsdl-net1.2-dev libsdl-image1.2-dev libftgl-dev
+
 $ mkdir build && cd build
 $ cmake .. && make -j4
 ```
