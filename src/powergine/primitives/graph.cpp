@@ -31,6 +31,17 @@ void Graph::addVertex( GraphVertex *pVertex ) {
 	} // if
 }
 
+GraphVertex* Graph::addVertex( const Vector3D & rkPosition ) {
+    GraphVertex *pVertex = NULL;
+    if ( !this->positionHasVertex( rkPosition ) ) {
+        pVertex = new GraphVertex( rkPosition );
+    	m_vecVertices.push_back( pVertex );
+    } else {
+        pVertex = this->getVertexByPosition( rkPosition ); 
+    } // else
+    return pVertex;
+}
+
 void Graph::removeVertex( GraphVertex *pVertex ) {
 	removeVertex( pVertex->getId( ) );
 }
@@ -54,6 +65,26 @@ void Graph::addEdge( GraphEdge *pEdge ) {
 	} // if
 }
 
+GraphEdge* Graph::addEdge( GraphVertex *pVertex1, GraphVertex *pVertex2 ) {
+    GraphEdge *pEdge = this->getEdge( pVertex1, pVertex2 );
+    if ( pEdge == NULL ) {
+        pEdge = new GraphEdge( pVertex1, pVertex2, (pVertex1->getPosition() - pVertex2->getPosition()).magnitude() );
+        pVertex1->addEdge( pEdge );
+        pVertex2->addEdge( pEdge );
+        m_vecEdges.push_back( pEdge );
+    } // if
+    return pEdge;
+}
+
+GraphEdge* Graph::addEdge( const Vector3D &rkPosition1, const Vector3D &rkPosition2 ) {
+    GraphVertex *pVertex1 = NULL, *pVertex2 = NULL;
+
+    pVertex1 = this->addVertex( rkPosition1 );
+    pVertex2 = this->addVertex( rkPosition2 );
+
+    return this->addEdge( pVertex1, pVertex2 );
+}
+
 void Graph::removeEdge( GraphEdge *pEdge ) {
 	removeEdge( pEdge->getId( ) );
 }
@@ -70,12 +101,13 @@ void Graph::removeEdge( long lEdgeId ) {
     } // while 
 }
 
-bool Graph::vertexBelongsToGraph( GraphVertex *pVertex ) {
+bool Graph::positionHasVertex( const Vector3D &rkPosition ) {
+
 	std::vector< GraphVertex* >::iterator ppBegin = this->m_vecVertices.begin( );
 	std::vector< GraphVertex* >::iterator ppEnd = this->m_vecVertices.end( );
     
     while ( ppBegin != ppEnd ) {
-      if ( *pVertex == **ppBegin ) {
+      if ( rkPosition == (*ppBegin)->getPosition( ) ) {
       	return true;
       } // if            
       ++ppBegin;
@@ -83,12 +115,23 @@ bool Graph::vertexBelongsToGraph( GraphVertex *pVertex ) {
     return false;
 }
 
+bool Graph::vertexBelongsToGraph( GraphVertex *pVertex ) {
+    return this->positionHasVertex( pVertex->getPosition( ) );
+}
+
 bool Graph::edgeBelongsToGraph( GraphEdge *pEdge ) {
+    return this->verticesBelongToEdge( pEdge->getVertex1( ), pEdge->getVertex2( ) );
+}
+
+bool Graph::verticesBelongToEdge( GraphVertex *pVertex1, GraphVertex *pVertex2 ) {
 	std::vector< GraphEdge* >::iterator ppBegin = this->m_vecEdges.begin( );
 	std::vector< GraphEdge* >::iterator ppEnd = this->m_vecEdges.end( );
     
     while ( ppBegin != ppEnd ) {
-      if ( *ppBegin == pEdge ) {
+      if ( ( *( *ppBegin )->getVertex1( ) == *pVertex1 &&
+             *( *ppBegin )->getVertex2( ) == *pVertex2 ) ||
+           ( *( *ppBegin )->getVertex1( ) == *pVertex2 &&
+             *( *ppBegin )->getVertex2( ) == *pVertex1  ) ) {
       	return true;
       } // if            
       ++ppBegin;
@@ -128,6 +171,22 @@ GraphEdge *Graph::getEdge( long lVertexId ) {
     
     while ( ppBegin != ppEnd ) {
       if ( ( *ppBegin )->getId( ) == lVertexId ) {
+      	return ( *ppBegin );
+      } // if            
+      ++ppBegin;
+    } // while 
+    return 0;
+}  
+ 
+GraphEdge *Graph::getEdge( GraphVertex *pVertex1, GraphVertex *pVertex2) {
+	std::vector< GraphEdge* >::iterator ppBegin = this->m_vecEdges.begin( );
+	std::vector< GraphEdge* >::iterator ppEnd = this->m_vecEdges.end( );
+    
+    while ( ppBegin != ppEnd ) {
+      if ( ( *( *ppBegin )->getVertex1( ) == *pVertex1 &&
+             *( *ppBegin )->getVertex2( ) == *pVertex2 ) ||
+           ( *( *ppBegin )->getVertex1( ) == *pVertex2 &&
+             *( *ppBegin )->getVertex2( ) == *pVertex1  ) ) {
       	return ( *ppBegin );
       } // if            
       ++ppBegin;

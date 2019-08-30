@@ -92,6 +92,8 @@ void AStarPathFinder::updatePath( ) {
 	if ( m_pStartVertex == 0 || m_pEndVertex == 0 ) {
 		return;
 	} // if
+
+    this->m_vecEdgesPath.clear();
 	
 	std::map<const primitives::GraphVertex*, int> mapAccumulatedCost;
 	std::map<const primitives::GraphVertex*, primitives::GraphEdge*> mapParents;

@@ -42,6 +42,7 @@ namespace powergine {
 
 		// Add a new vertex to the graph
 		void addVertex( GraphVertex *pVertex );
+		GraphVertex* addVertex( const Vector3D& position );
 
 		// Remove a vertex from the graph given its pointer
 		void removeVertex( GraphVertex *pVertex );
@@ -50,6 +51,9 @@ namespace powergine {
 
 		// Add a new edge to the graph
 		void addEdge( GraphEdge *pEdge );
+		GraphEdge* addEdge( GraphVertex *pVertex1, GraphVertex *pVertex2 );
+		GraphEdge* addEdge( const Vector3D &rkPosition1, const Vector3D &rkPosition2 );
+
 		// Remove an edge from the graph given its pointer
 		void removeEdge( GraphEdge *pEdge );
 		// Remove an edge from the graph given its id
@@ -60,8 +64,10 @@ namespace powergine {
 
 		// Check if a given vertex (pointer) belongs to the graph
 		bool vertexBelongsToGraph( GraphVertex *pVertex );
+		bool positionHasVertex( const Vector3D &rkPosition );
 		// Check if a given edge (pointer) belongs to the graph
 		bool edgeBelongsToGraph( GraphEdge *pEdge );
+		bool verticesBelongToEdge( GraphVertex *pVertex1, GraphVertex *pVertex2 );
 
 		// Returns the nearest vertex of the graph given a position
 		GraphVertex *getVertexByPosition( const Vector3D &rkPosition );
@@ -69,6 +75,7 @@ namespace powergine {
 		GraphVertex *getVertex( long lVertexId );
 		// Returns an edge given its id
 		GraphEdge *getEdge( long lVertexId );
+		GraphEdge *getEdge( GraphVertex *pVertex1, GraphVertex *pVertex2);
 
 		// Returns all edges of the graph
 		inline std::vector<GraphEdge*> getEdges( ) {
