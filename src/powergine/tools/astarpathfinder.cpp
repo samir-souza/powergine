@@ -88,12 +88,12 @@ void AStarPathFinder::setEndVertex( long lVertexId ) {
 
 	
 void AStarPathFinder::updatePath( ) {
-			
 	if ( m_pStartVertex == 0 || m_pEndVertex == 0 ) {
 		return;
 	} // if
 
     this->m_vecEdgesPath.clear();
+    this->m_vecVerticesPath.clear();
 	
 	std::map<const primitives::GraphVertex*, int> mapAccumulatedCost;
 	std::map<const primitives::GraphVertex*, primitives::GraphEdge*> mapParents;
@@ -160,6 +160,7 @@ void AStarPathFinder::updatePath( ) {
 	while ( lastVertex != m_pStartVertex && mapParents[ lastVertex ] != 0 ) {
 		primitives::GraphEdge* lastEdge = mapParents[ lastVertex ];
 		m_vecEdgesPath.insert( m_vecEdgesPath.begin( ), lastEdge );
+        m_vecVerticesPath.insert( m_vecVerticesPath.begin(), lastVertex );
 		lastVertex = lastEdge->getOtherVertex( lastVertex );
 	} // for
 	

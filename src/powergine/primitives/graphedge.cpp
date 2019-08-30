@@ -21,7 +21,7 @@
 
 #include <powergine/primitives/graphedge.h>
 #include <powergine/primitives/graphvertex.h>
-
+#include <limits>
 
 namespace powergine {
    namespace primitives {
@@ -80,6 +80,18 @@ bool GraphEdge::intersection( GraphEdge *pEdge ) {
 
 } // intersection
 
+Vector3D GraphEdge::getNearestPointInEdge( const Vector3D &rkPoint ) const {
+    Vector3D kPos1 = this->getVertex1( )->getPosition( );
+    Vector3D kPos2 = this->getVertex2( )->getPosition( );
+    float fEdgeLength = (kPos1 - kPos2).magnitude();
+    if ( fEdgeLength == 0 ) {
+        return kPos1;
+    } else {
+        float fT = ((rkPoint - kPos1) * (kPos1 - kPos2)) / fEdgeLength;
+        fT = std::max(0.0f, std::min( 1.0f, fT ) );
+        return ((kPos2 - kPos1) * fT) + kPos1; 
+    } // else 
+}
 
 std::string GraphEdge::toString( ) const {
 	std::stringstream ssString;

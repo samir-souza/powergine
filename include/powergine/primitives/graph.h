@@ -77,6 +77,8 @@ namespace powergine {
 		GraphEdge *getEdge( long lVertexId );
 		GraphEdge *getEdge( GraphVertex *pVertex1, GraphVertex *pVertex2);
 
+        GraphEdge* findNearestEdge( const Vector3D &rkPosition ) const;
+
 		// Returns all edges of the graph
 		inline std::vector<GraphEdge*> getEdges( ) {
 			return m_vecEdges;

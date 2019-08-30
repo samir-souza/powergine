@@ -20,6 +20,7 @@
 
 
 #include <powergine/primitives/graph.h>
+#include <limits>
 
 namespace powergine {
    namespace primitives {
@@ -194,6 +195,23 @@ GraphEdge *Graph::getEdge( GraphVertex *pVertex1, GraphVertex *pVertex2) {
     return 0;
 }
 	
+GraphEdge* Graph::findNearestEdge( const Vector3D &rkPosition ) const {
+    std::vector< GraphEdge* >::const_iterator ppBegin = this->m_vecEdges.cbegin( );
+    std::vector< GraphEdge* >::const_iterator ppEnd = this->m_vecEdges.cend( );
+    float fMinDistance = std::numeric_limits<float>::infinity();
+    GraphEdge *pEdge = NULL;
+    while ( ppBegin != ppEnd ) {
+        Vector3D kPointInEdge = (*ppBegin)->getNearestPointInEdge( rkPosition );
+        float fDistance = (rkPosition - kPointInEdge ).magnitude( );
+        if ( fDistance < fMinDistance ) {
+            fMinDistance = fDistance;
+            pEdge = *ppBegin;
+        } // if
+        ++ppBegin;
+    } // while 
+    return pEdge;
+}
+
 std::string Graph::toString( ) {
 	std::stringstream ssString;
 	

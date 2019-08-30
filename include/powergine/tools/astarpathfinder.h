@@ -61,10 +61,16 @@ namespace powergine {
 			return m_vecEdgesPath;
 		};
 
+		// return the Vertex list that represents the path
+		inline std::vector<primitives::GraphVertex*> getPathVertices( ) {
+			return m_vecVerticesPath;
+		};
+
 		std::string toString( );
 
 	private:
 		std::vector<primitives::GraphEdge*> m_vecEdgesPath;
+		std::vector<primitives::GraphVertex*> m_vecVerticesPath;
 		primitives::GraphVertex *m_pStartVertex;
 		primitives::GraphVertex *m_pEndVertex;
 		primitives::Graph *m_pGraph;

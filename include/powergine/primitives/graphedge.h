@@ -26,8 +26,8 @@
 namespace powergine {
    namespace primitives {
 
-	class GraphVertex;
-
+   	class GraphVertex;
+    class Vector3D;
 	/**
 	 * Represents a graph edge. This class is part of the
 	 * Graph toolset
@@ -65,6 +65,9 @@ namespace powergine {
 
 		// Given a vertex, returns the other vertex connected by this edge
 		GraphVertex* getOtherVertex( GraphVertex* pVertex );
+
+        // Return the nearest point in the segment (edge) to the reference point
+        Vector3D getNearestPointInEdge( const Vector3D &rkPoint ) const;
 
 		// Returns a string description of the edge
 		std::string toString( ) const;
