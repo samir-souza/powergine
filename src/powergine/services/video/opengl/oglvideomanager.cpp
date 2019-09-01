@@ -1,4 +1,4 @@
-// Copyright (c) 2004 Samir Araujo <samir.araujo.com>
+// Copyright (c) 2004 Samir Araujo
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -218,7 +218,7 @@ bool OGLVideoManager::openWindow( const services::video::RenderWindow &rkRenderW
    const std::string strExtensions = reinterpret_cast<const char*>( glGetString( GL_EXTENSIONS ) );
 
    std::cout << "....................................................................................." << std::endl;
-   std::cout << "PowerGine v1.0 - Copyright 2005 by Samir Araujo de Souza (samir.araujo@linuxmail.org)" << std::endl;
+   std::cout << "PowerGine v1.0 - Copyright 2005 by Samir Araujo " << std::endl;
    std::cout << "....................................................................................." << std::endl;
    std::cout << "::Window Info" << std::endl;
    std::cout << "Width: " << getWidth( ) << std::endl;
