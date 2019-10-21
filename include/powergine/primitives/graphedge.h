@@ -57,7 +57,7 @@ namespace powergine {
 		// Getter of the edge cost. The cost is informed
 		// during the Edge creation
 		inline float getCost( ) const {
-			return this->m_fCost;
+			return this->m_fCost + this->m_fAdditionalCost;
 		};
 
         inline void setAdditionalCost( float fCost ) {
