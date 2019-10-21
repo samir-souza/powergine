@@ -30,6 +30,9 @@ long GraphEdge::s_lEdgeIdCounter = 0;
 
 GraphEdge::GraphEdge( GraphVertex *pVertex1, GraphVertex *pVertex2, float fCost ) : 
 	m_pVertex1( pVertex1 ), m_pVertex2( pVertex2 ), m_fCost( fCost ) { 	
+    if ( fCost == 0 ) {
+        this->m_fCost = (pVertex1->getPosition() - pVertex2->getPosition()).magnitude();
+    } // if
 	this->m_lId = s_lEdgeIdCounter++;
 };
 

@@ -60,6 +60,14 @@ namespace powergine {
 			return this->m_fCost;
 		};
 
+        inline void setAdditionalCost( float fCost ) {
+            this->m_fAdditionalCost = fCost;
+        }
+        
+        inline float getAdditionalCost( ) const {
+            return this->m_fAdditionalCost;
+        }
+
 		// Checks if a given edge intersects this one
 		bool intersection( GraphEdge *pEdge );
 
@@ -76,7 +84,7 @@ namespace powergine {
 		static long s_lEdgeIdCounter;
 		GraphVertex *m_pVertex1;
 		GraphVertex *m_pVertex2;
-		float m_fCost;
+		float m_fCost, m_fAdditionalCost;
 		long m_lId;
 
 	};

@@ -96,8 +96,8 @@ void Graph::removeEdge( long lEdgeId ) {
     
     while ( ppBegin != ppEnd ) {
       if ( ( *ppBegin )->getId( ) == lEdgeId ) {
-	(*ppBegin)->getVertex1()->removeEdge( lEdgeId );
-	(*ppBegin)->getVertex2()->removeEdge( lEdgeId );
+	    (*ppBegin)->getVertex1()->removeEdge( lEdgeId );
+	    (*ppBegin)->getVertex2()->removeEdge( lEdgeId );
       	m_vecEdges.erase( ppBegin );
       } // if            
       ++ppBegin;

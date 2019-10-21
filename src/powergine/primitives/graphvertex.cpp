@@ -52,8 +52,9 @@ void GraphVertex::removeEdge( long lEdgeId ) {
     
     while ( ppBegin != ppEnd ) {            
       if ( ( *ppBegin )->getId( ) == lEdgeId ) {
+      	GraphVertex *pOther = ( *ppBegin )->getOtherVertex( this );
       	m_vecConnectedEdges.erase( ppBegin );
-      	( *ppBegin )->getOtherVertex( this )->removeEdge( lEdgeId );      
+        pOther->removeEdge( lEdgeId );      
       } // if           
       ++ppBegin;
     } // while 
