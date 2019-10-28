@@ -90,17 +90,20 @@ Vector3D GraphEdge::getNearestPointInEdge( const Vector3D &rkPoint ) const {
     if ( fEdgeLength == 0 ) {
         return kPos1;
     } else {
-        float fT = ((rkPoint - kPos1) * (kPos1 - kPos2)) / fEdgeLength;
-        fT = std::max(0.0f, std::min( 1.0f, fT ) );
-        return ((kPos2 - kPos1) * fT) + kPos1; 
+        Vector3D seg = kPos2 - kPos1;
+
+        float fLambda = ((rkPoint - kPos1) * seg) / (seg * seg);
+        if ( fLambda <= 0 ) return kPos1;
+        else if ( fLambda >= 1 ) return kPos2;
+        else return kPos1 + (seg * fLambda);
     } // else 
 }
 
 std::string GraphEdge::toString( ) const {
 	std::stringstream ssString;
-	ssString << "Edge ID: " << m_lId << " Cost: " << m_fCost << std::endl;
-	ssString << "Vertex 1 ID: " << getVertex1( )->getId( ) << std::endl;
-	ssString << "Vertex 2 ID: " << getVertex2( )->getId( ) << std::endl;
+	ssString << "Edge ID: " << m_lId << " Cost: " << m_fCost << " AddCost: " << m_fAdditionalCost << std::endl;
+	ssString << "Vertex 1 ID: " << getVertex1( )->getId( ) << " " << getVertex1( )->getPosition( ).toString( ) << std::endl;
+	ssString << "Vertex 2 ID: " << getVertex2( )->getId( ) << " " << getVertex2( )->getPosition( ).toString( ) << std::endl;
 	return ssString.str( );
 } // toString
 

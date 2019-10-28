@@ -42,10 +42,11 @@ public:
 		m_pEndVertex( pEndVertex ), m_pAccumulatedCost( pAccumulatedCost ) { } 
   	
   	inline bool operator( )( const primitives::GraphVertex* s1, const primitives::GraphVertex* s2) const {
-    	float fDistanceS1ToGoal = ( const_cast<primitives::GraphVertex*>( s1 )->getPosition( ) ^ m_pEndVertex->getPosition( ) ).magnitude( );
-    	float fDistanceS2ToGoal = ( const_cast<primitives::GraphVertex*>( s2 )->getPosition( ) ^ m_pEndVertex->getPosition( ) ).magnitude( );
+    	//float fDistanceS1ToGoal = ( const_cast<primitives::GraphVertex*>( s1 )->getPosition( ) ^ m_pEndVertex->getPosition( ) ).magnitude( );
+    	//float fDistanceS2ToGoal = ( const_cast<primitives::GraphVertex*>( s2 )->getPosition( ) ^ m_pEndVertex->getPosition( ) ).magnitude( );
     	
-    	
+    	float fDistanceS1ToGoal = ( const_cast<primitives::GraphVertex*>( s1 )->getPosition( ) - m_pEndVertex->getPosition( ) ).magnitude( );
+    	float fDistanceS2ToGoal = ( const_cast<primitives::GraphVertex*>( s2 )->getPosition( ) - m_pEndVertex->getPosition( ) ).magnitude( );
     	return ( (*m_pAccumulatedCost)[ s1 ] + fDistanceS1ToGoal < (*m_pAccumulatedCost)[ s2 ] + fDistanceS2ToGoal );
   	} // operator
 private:
@@ -112,6 +113,8 @@ void AStarPathFinder::updatePath( ) {
 		std::sort( vecOpenVertex.begin( ), vecOpenVertex.end( ), HeuristicVertexCostComparator( m_pEndVertex, &mapAccumulatedCost ) );
 
 		primitives::GraphVertex *pCurrentVertex = vecOpenVertex.front( );
+		vecOpenVertex.erase( std::find( vecOpenVertex.begin( ), vecOpenVertex.end( ), pCurrentVertex ) );
+		vecClosedVertex.push_back( pCurrentVertex );
 	
 		if ( pCurrentVertex == m_pEndVertex ) {
 			goalReached = true;
@@ -127,31 +130,29 @@ void AStarPathFinder::updatePath( ) {
 				int newCost = mapAccumulatedCost[ pCurrentVertex ] + (*ppBegin)->getCost( );
 			
 				primitives::GraphVertex *pInspectedVertex = (*ppBegin)->getOtherVertex( pCurrentVertex );
-				bool isVertexInClosedList = ( vecClosedVertex.end( ) != find ( vecClosedVertex.begin( ), vecClosedVertex.end( ), pInspectedVertex ) );
-				bool isVertexInOpenList = ( vecOpenVertex.end( ) != find ( vecOpenVertex.begin( ), vecOpenVertex.end( ), pInspectedVertex ) );
-				
-				if ( ( isVertexInClosedList || isVertexInOpenList ) && mapAccumulatedCost[ pInspectedVertex ] <= newCost ) {
-					continue;					
-				} // if
+				if ( vecClosedVertex.end( ) != find ( vecClosedVertex.begin( ), vecClosedVertex.end( ), pInspectedVertex ) ) continue;
 
+                 
 				mapParents[ pInspectedVertex ] = (*ppBegin); 
 
 				mapAccumulatedCost[ pInspectedVertex ] = newCost;
 
-				if ( isVertexInClosedList ) {
-					vecClosedVertex.erase( find ( vecClosedVertex.begin( ), vecClosedVertex.end( ), pInspectedVertex ) );
-				} // if
+				if ( vecOpenVertex.end( ) != find ( vecOpenVertex.begin( ), vecOpenVertex.end( ), pInspectedVertex ) ) continue;
 				
-				if ( !isVertexInOpenList ) {
+
+
+				//if ( isVertexInClosedList ) {
+				//	vecClosedVertex.erase( find ( vecClosedVertex.begin( ), vecClosedVertex.end( ), pInspectedVertex ) );
+				//} // if
+				
+				//if ( !isVertexInOpenList ) {
 					vecOpenVertex.push_back( pInspectedVertex );
-				} // if
+				//} // if
 
 			} // for
 		 
 		} // if
 		
-		vecClosedVertex.push_back( pCurrentVertex );
-		vecOpenVertex.erase( std::find( vecOpenVertex.begin( ), vecOpenVertex.end( ), pCurrentVertex ) );
 	
 	} // while
 	
