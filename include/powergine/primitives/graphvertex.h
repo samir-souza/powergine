@@ -85,7 +85,7 @@ namespace powergine {
 
 		// Returns a list which contains all edges that don't make a loop
 		// on this vertex
-		std::vector<GraphEdge*> getNonLoopEdges( );
+		std::vector<GraphEdge*> getNonLoopEdges(bool directional=false);
 
 		// Returns a string description of the vertex
 		std::string toString( );

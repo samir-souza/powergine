@@ -88,7 +88,7 @@ void AStarPathFinder::setEndVertex( long lVertexId ) {
 } // setEndVertex
 
 	
-void AStarPathFinder::updatePath( ) {
+void AStarPathFinder::updatePath( bool directional ) {
 	if ( m_pStartVertex == 0 || m_pEndVertex == 0 ) {
 		return;
 	} // if
@@ -121,7 +121,7 @@ void AStarPathFinder::updatePath( ) {
 			continue;
 		} // if
 			
-		std::vector<primitives::GraphEdge*> vecAdjacentEdges = pCurrentVertex->getNonLoopEdges( );
+		std::vector<primitives::GraphEdge*> vecAdjacentEdges = pCurrentVertex->getNonLoopEdges(directional);
 		if ( vecAdjacentEdges.begin( ) != vecAdjacentEdges.end( ) ) {
 			std::sort( vecAdjacentEdges.begin( ), vecAdjacentEdges.end( ), EdgeCostComparator( ) );
 			std::vector<primitives::GraphEdge*>::iterator ppBegin = vecAdjacentEdges.begin( );

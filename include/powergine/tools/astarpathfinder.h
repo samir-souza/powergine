@@ -54,7 +54,8 @@ namespace powergine {
 		void setEndVertex( long lVertexId );
 
 		// run A* and make a Edge list to represent the path
-		void updatePath( );
+        // set directional=true if you want a direct graph
+		void updatePath( bool directional = false );
 
 		// return the Edge list that represents the path
 		inline std::vector<primitives::GraphEdge*> getPathEdges( ) {

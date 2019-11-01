@@ -74,12 +74,17 @@ std::set<GraphVertex*> GraphVertex::getAdjacentVertices( ) {
     return setAdjacentVertices;
 }
 
-std::vector<GraphEdge*> GraphVertex::getNonLoopEdges( ) {
+std::vector<GraphEdge*> GraphVertex::getNonLoopEdges( bool directional) {
 	std::vector<GraphEdge*> vecNonLoopEdges;
 	
 	std::vector< GraphEdge* >::iterator ppBegin = this->m_vecConnectedEdges.begin( );
 	std::vector< GraphEdge* >::iterator ppEnd = this->m_vecConnectedEdges.end( );
     while ( ppBegin != ppEnd ) {
+        // ignore edges that don't start with this node, if directional is true
+        if ( directional && (*ppBegin)->getVertex1() != this )  {
+            ++ppBegin; continue; 
+        } // if
+
     	if ( (*ppBegin)->getOtherVertex( this ) != this ) {
     		vecNonLoopEdges.push_back( *ppBegin );
     	} // if 
